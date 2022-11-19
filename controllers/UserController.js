@@ -9,8 +9,8 @@ module.exports = {
   },
   // Get a single user
   getSingleUser(req, res) {
-    User.findOne({ _id: req.params.userId })
-      .select('friends', 'thought')
+    User.findOne( { _id: req.params.userId } )
+      .select('friends', 'friendCount', 'thought')
       .then((user) =>
         !user
           ? res.status(404).json({ message: 'No user with that ID' })
