@@ -1,51 +1,59 @@
 const connection = require('../config/connection');
-const { Course, Student } = require('../models');
-const { getRandomName, getRandomAssignments } = require('./data');
+const { User, Thought } = require('../models');
 
 connection.on('error', (err) => err);
 
 connection.once('open', async () => {
   console.log('connected');
 
-  // Drop existing courses
-  await Course.deleteMany({});
-
-  // Drop existing students
-  await Student.deleteMany({});
-
-  // Create empty array to hold the students
-  const students = [];
-
-  // Loop 20 times -- add students to the students array
-  for (let i = 0; i < 20; i++) {
-    // Get some random assignment objects using a helper function that we imported from ./data
-    const assignments = getRandomAssignments(20);
-
-    const fullName = getRandomName();
-    const first = fullName.split(' ')[0];
-    const last = fullName.split(' ')[1];
-    const github = `${first}${Math.floor(Math.random() * (99 - 18 + 1) + 18)}`;
-
-    students.push({
-      first,
-      last,
-      github,
-      assignments,
-    });
-  }
-
-  // Add students to the collection and await the results
-  await Student.collection.insertMany(students);
-
-  // Add courses to the collection and await the results
-  await Course.collection.insertOne({
-    courseName: 'UCLA',
-    inPerson: false,
-    students: [...students],
+  // Add users to the collection and await the results
+  await User.collection.insertOne({
+    username: 'Aaran',
+    email: 'aaran@gmail.com',
+    thoughts: 'very cool', 
+    thoughts: 'Happy Thanksgiving',
+    friends: 'Abel', 
+    friends: 'Blanca',
   });
+  await User.collection.insertOne({
+    username: 'Abel',
+    email: 'abel@yahoo.com',
+    thoughts: 'awesome', 
+    friends: 'Aaran', 
+    friends: 'Blanca',
+  });
+  await User.collection.insertOne({
+    username: 'Blanca',
+    email: 'blancaB@gmail.com',
+    thoughts: 'great day',
+    friends: 'Abel',
+  });
+  //add thoughts to the db
+  await Thought.collection.insertOne({
+    thoughtText: 'very cool',
+    username: 'Aaran',
+  });
+  await Thought.collection.insertOne({
+    thoughtText: 'Happy Thanksgiving',
+    username: 'Aaran',
+  });
+  await Thought.collection.insertOne({
+    thoughtText: 'Happy Thanksgiving',
+    username: 'Aaran',
+  });
+    await Thought.collection.insertOne({
+      thoughtText: 'awesome',
+      username: 'Abel',
+    });
+    await Thought.collection.insertOne({
+      thoughtText: 'great day',
+      username: 'Blanca',
+    });
+  
 
   // Log out the seed data to indicate what should appear in the database
-  console.table(students);
+  console.table(user);
+  console.table(thought);
   console.info('Seeding complete! 🌱');
   process.exit(0);
 });
