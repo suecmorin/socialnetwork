@@ -10,7 +10,7 @@ module.exports = {
   // Get a single user
   getSingleUser(req, res) {
     User.findOne( { _id: req.params.userId } )
-      .select('friends', 'friendCount', 'thought')
+      .populate('friends', 'friendCount', 'thought')
       .then((user) =>
         !user
           ? res.status(404).json({ message: 'No user with that ID' })
@@ -39,7 +39,7 @@ module.exports = {
       .catch((err) => res.status(500).json(err));
   },
   // Add friend
-  updateUser(req, res) {
+  addFriend(req, res) {
     User.findOneAndUpdate(
       { _id: req.params.userId },
       { $push: { friends: req.param.body } },
@@ -53,7 +53,7 @@ module.exports = {
       .catch((err) => res.status(500).json(err));
   },
 //delete friend
-updateUser(req, res) {
+deleteFriend(req, res) {
   User.findOneAndUpdate(
     { _id: req.params.userId },
     { $pull: { friends: req.param.body} },
