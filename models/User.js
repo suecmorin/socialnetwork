@@ -7,7 +7,7 @@ const userSchema = new Schema(
     username: {
       type: String, trim: true,
       required: true,
-      maxlength: 50,
+      maxLength: 50,
     },
    email: {
       type: String, unique: true,
@@ -25,21 +25,20 @@ const userSchema = new Schema(
     thought: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'Thought'
+        ref: 'Thought',
       },
     ],
   },
-  userSchema.virtual('friendCount').get(function () {
-    return this.friends.length;
-  });
-  
   {
     toJSON: {
       virtuals: true,
     },
-  }
+    id: false,
+  },
 );
+userSchema.virtual('friendCount').get(function () {
+  return this.friends.length;
+});
 
 const User = model('user', userSchema);
-
 module.exports = User;
