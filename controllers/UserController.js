@@ -4,7 +4,7 @@ module.exports = {
   // Get all users
   getUser(req, res) {
     User.find()
-      .then(() => res.json(users))
+      .then(() => res.json(user))
       .catch((err) => res.status(500).json(err));
   },
   // Get a single user
@@ -33,7 +33,7 @@ module.exports = {
       .then((user) =>
         !user
           ? res.status(404).json({ message: 'No user with that ID' })
-          : Thought.deleteMany({ _id: { $in: UserId.thought } })
+          : Thought.deleteMany({ _id: { $in: username.thoughtText } })
       )
       .then(() => res.json({ message: 'User and thoughts deleted!' }))
       .catch((err) => res.status(500).json(err));
@@ -42,8 +42,8 @@ module.exports = {
   updateUser(req, res) {
     User.findOneAndUpdate(
       { _id: req.params.userId },
-      { $push: { friends: req.param.body },
-      { runValidators: true, new: true }
+      { $push: { friends: req.param.body } },
+      { runValidators: true, new: true },
     )
       .then((user) =>
         !user
@@ -52,13 +52,12 @@ module.exports = {
       )
       .catch((err) => res.status(500).json(err));
   },
-};
 //delete friend
 updateUser(req, res) {
   User.findOneAndUpdate(
     { _id: req.params.userId },
-    { $pull: { friends: req.param.body},
-    { runValidators: true, new: false }
+    { $pull: { friends: req.param.body} },
+    { runValidators: true, new: true },
   )
     .then((user) =>
       !user
