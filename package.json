@@ -1,15 +1,28 @@
-
-"scripts": {
-  "start": "node index.js",
-  "dev": "nodemon index.js",
-  "seed": "node utils/seed.js",
-  "heroku-postbuild": "node utils/seed.js"
-},{
-  
+{
+  "name": "socialnetwork",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "seed": "node utils/seed.js",
+    "heroku-postbuild": "node utils/seed.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/suecmorin/socialnetwork.git"
+  },
+  "author": "Sue Morin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/suecmorin/socialnetwork/issues"
+  },
+  "homepage": "https://github.com/suecmorin/socialnetwork#readme",
   "dependencies": {
     "express": "^4.18.2",
-    "mongoose": "^6.7.3",
-    "seed-js": "^0.0.11"
+    "moment": "^2.29.4",
+    "mongoose": "^6.7.3"
   }
 }
-
